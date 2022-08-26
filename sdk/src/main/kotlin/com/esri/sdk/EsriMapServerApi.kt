@@ -1,9 +1,10 @@
 package com.esri.sdk
 
+import com.esri.sdk.bean.EsriMapServerInfo
 import com.esri.sdk.bean.EsriQueryParams
-import com.esri.sdk.bean.EsriMapServerBean
+import com.esri.sdk.bean.EsriQueryResult
 import io.reactivex.rxjava3.core.Observable
-import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Url
 
@@ -15,10 +16,32 @@ import retrofit2.http.Url
  */
 interface EsriMapServerApi {
 
+
     /**
      * 查询数据
      */
     @POST
-    @FormUrlEncoded
-    fun query(@Url url: String, params: EsriQueryParams): Observable<EsriMapServerBean>
+    fun queryOnlyObjectId(
+        @Url url: String,
+        @Body params: EsriQueryParams
+    ): Observable<EsriQueryResult>
+
+
+    /**
+     * 查询图层
+     */
+    @POST
+    fun queryMapServerInfo(@Url url: String): Observable<EsriMapServerInfo>
+
+    /**
+     * 查询 Legend
+     */
+    @POST
+    fun queryLegend(@Url url: String): Observable<EsriMapServerInfo>
+
+    /**
+     * 查询数据
+     */
+    @POST
+    fun query(@Url url: String, @Body params: EsriQueryParams): Observable<EsriQueryResult>
 }

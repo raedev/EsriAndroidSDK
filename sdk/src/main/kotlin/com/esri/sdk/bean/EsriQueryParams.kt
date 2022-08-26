@@ -25,18 +25,18 @@ class EsriQueryParams : RequestBody() {
     var spatialRel: String? = "esriSpatialRelIntersects"
     var relationParam: String? = ""
     var outFields: String? = "*"
-    var returnGeometry: String? = "true"
-    var returnIdsOnly: String? = "false"
-    var returnCountOnly: String? = "false"
-    var returnDistinctValues: String? = "false"
+    var returnGeometry: Boolean = true
+    var returnIdsOnly: Boolean = false
+    var returnCountOnly: Boolean = false
+    var returnDistinctValues: Boolean = false
     var maxAllowableOffset: String? = ""
     var geometryPrecision: String? = ""
     var outSR: String? = ""
     var orderByFields: String? = ""
     var groupByFieldsForStatistics: String? = ""
     var outStatistics: String? = ""
-    var returnZ: String? = "false"
-    var returnM: String? = "false"
+    var returnZ: Boolean = false
+    var returnM: Boolean = false
     var gdbVersion: String? = ""
     var f: String? = "pjson"
 
@@ -85,5 +85,16 @@ class EsriQueryParams : RequestBody() {
             }
         }
         builder.build().writeTo(sink)
+    }
+
+    /**
+     * 复制一份
+     */
+    fun clone(): EsriQueryParams {
+        val gson = Gson()
+        val json = gson.toJson(this)
+        val clone = gson.fromJson(json, EsriQueryParams::class.java)
+        this.where?.let { clone.whereBuilder.append(this.where) }
+        return clone
     }
 }

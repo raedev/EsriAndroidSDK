@@ -6,23 +6,26 @@ package com.esri.sdk.bean
  * @date 2022/08/18
  * @copyright Copyright (c) https://github.com/raedev All rights reserved.
  */
-data class EsriMapServerBean(
+data class EsriQueryResult(
 
     /** 当前图层显示的字段名 */
-    var displayFieldName: String,
+    var displayFieldName: String?,
 
     /** 图层矢量类型 */
-    var geometryType: String,
+    var geometryType: String?,
 
     /** 字段别名列表 */
-    var fieldAliases: EsriFieldAliases,
+    var fieldAliases: EsriFieldAliases?,
 
     /** 空间参考系 */
-    var spatialReference: EsriSpatialReference,
+    var spatialReference: EsriSpatialReference?,
 
     /** 字段列表 */
-    var fields: List<EsriFields>,
+    var fields: List<EsriFields>?,
 
     /** 矢量列表 */
-    var features: List<EsriFeature>
+    var features: List<EsriFeature>?,
+
+    /** ObjectId列表 */
+    var objectIds: List<String>?
 )
